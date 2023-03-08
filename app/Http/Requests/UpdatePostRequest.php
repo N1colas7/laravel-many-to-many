@@ -26,7 +26,8 @@ class UpdatePostRequest extends FormRequest
     {
         return [
             'title' => ['required', Rule::unique('posts')->ignore($this->post), 'max:150'],
-            'content' => ['nullable']
+            'content' => ['nullable'],
+            'technologies' =>['exists:technologies,id']
         ];
     }
         /**
@@ -39,8 +40,8 @@ class UpdatePostRequest extends FormRequest
         return [
             'title.required' => 'Il titolo è richiesto',
             'title.unique' => ' E\' già presente un progetto con questo titolo',
-            'title.max' => 'Il progetto non può essere lungo più di :max caratteri'
-
+            'title.max' => 'Il progetto non può essere lungo più di :max caratteri',
+            'technologies.exists' => 'La tecnologia selezionata non è valida'
         ];
     }
 }

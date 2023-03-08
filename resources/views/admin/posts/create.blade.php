@@ -36,13 +36,15 @@
                         @endforeach
                    </select>
                 </div>
-                <div class="form-group mt-3">
-                    <div class="control-label">Tecnologie</div>
-                    @foreach ($technology as $tech)
-                        <input type="checkbox" value="{{ $tech->id }}" name="technologies[]">
-                        <label class="form-check-label">{{ $tech->name }}</label>
-                    @endforeach
+                @foreach ($technology as $tech)
+                <div class="form-check @error('technology') is invalid @enderror">
+                    <input class="form-check-input" type="checkbox" value="{{ $tech->id }}" name="technologies[]">
+                    <label class="form-check-label">{{ $tech->name }}</label>
+                    @error('technology')
+                    <div class="invalid-feedback">{{ message }}</div>
+                    @enderror
                 </div>    
+                @endforeach
                 <div class="form-group mt-3">
                     <label class="control-label">
                          Contenuto

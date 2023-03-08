@@ -28,6 +28,25 @@
                     @enderror
                 </div>
                 <div class="form-group mt-3">
+                    <div class="control-label">Tecnologie</div>
+                    @foreach ($technology as $tech)
+                    <div class="form-check @error('technology') is invalid @enderror">
+                        {{-- primo caso: in caso di errore di validazione bisogna ricaricaricare le tecnologie con old --}}
+                        @if ($errors->any())
+                        <input class="form-check-input" type="checkbox" value="{{ $tech->id }}" name="technologies[]" {{ in_array($tech->id, old('techonology, []')) ? 'checked' : '' }} >
+                        <label class="form-check-label">{{ $tech->name }}</label>
+                        @else
+                        {{-- secondo caso:se ci sono problemi di validazione significa che la pagina è stata aperta per la prima volta--}}
+                        <input class="form-check-input" type="checkbox" value="{{ $tech->id }}" name="technologies[]" {{ $post->technologies->contains($tech) ? 'checked' : '' }}>
+                        @endif
+                        <label class="form-check-label">{{ $tech->name }}</label>
+                    </div>
+                    @endforeach
+                    @error('technology')
+                    <div class="invalid-feedback">{{ message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group mt-3">
                     <label class="control-label">
                          Contenuto
                     </label>

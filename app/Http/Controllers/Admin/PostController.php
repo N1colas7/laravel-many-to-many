@@ -82,7 +82,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $technology = Technology::all();
+        return view('admin.posts.edit', compact('post' ,'technology'));
     }
 
     /**
@@ -100,6 +101,10 @@ class PostController extends Controller
         $form_data['slug'] = $slug;
 
         $post->update($form_data);
+
+        if($request->has('technologies')){
+            $post->technologies()->synch($request->technologies);
+        }
         return redirect()->route('admin.posts.index')->with('message', 'Hai modificato correttamente il progetto');
     }
 
@@ -111,6 +116,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        //se non abbiamo fatto come in questo caso il 'CascateOnDelete' nella migration utilizziamo questo
+        //prima cancelliamo i record della tabella ponte
+        $post->technologies()->sync([]);
+        
+        //e poi cancelliamo il post
         $post->delete();
 
         return redirect()->route('admin.posts.index')->with('message', 'Hai cancellato correttamente il progetto');
