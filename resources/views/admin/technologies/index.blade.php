@@ -23,7 +23,29 @@
                                 <td>{{ $tech->id }}</td>
                                 <td>{{ $tech->name }}</td>
                                 <td>{{ $tech->slug }}</td>
-                                <td>{{--AZIONI--}}</td>
+                                <td>
+                                    <div class="d-flex">
+                                        <div class="m-1">
+                                            <a href="{{ route('admin.posts.show', $tech->slug)}}" title="Visualizza Progetto" class="btn btn-primary btn-sm btn-square">
+                                                    <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                        <div class="m-1">
+                                            <a href="{{ route('admin.posts.edit', $tech->slug)}}" title="Modifica Progetto" class="btn btn-warning btn-sm btn-square">
+                                                    <i class="fas fa-edit"></i>
+                                            </a>
+                                        </div>
+                                        <div class="m-1">
+                                            <form action="{{ route('admin.posts.destroy', $tech->slug) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm btn-square">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                        </div>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
