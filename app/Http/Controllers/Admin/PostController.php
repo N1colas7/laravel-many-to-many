@@ -8,6 +8,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Models\Type;
+use App\Models\Technology;
 
 
 class PostController extends Controller
@@ -31,7 +32,8 @@ class PostController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.posts.create', compact('types'));
+        $technology = Technology::all();
+        return view('admin.posts.create', compact('types','technology'));
     }
 
     /**
@@ -52,6 +54,10 @@ class PostController extends Controller
         $newPost->fill($form_data);
 
         $newPost->save();
+
+        if($request->has('technologies')){
+            $newTech->technologies()->attach($request->technologies);
+        }
 
         return redirect()->route('admin.posts.index')->with('message','Progetto creato correttamente');
     }

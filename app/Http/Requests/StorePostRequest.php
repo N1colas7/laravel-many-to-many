@@ -26,7 +26,8 @@ class StorePostRequest extends FormRequest
         return [
             'title' => ['required', 'unique:posts', 'max:150'],
             'content' => ['nullable'],
-            'type_id' => ['nullable', 'exists:types,id']
+            'type_id' => ['nullable', 'exists:types,id'],
+            'technologies' => ['exists:technologies,id']
         ];
     }
         /**
@@ -39,8 +40,8 @@ class StorePostRequest extends FormRequest
         return [
             'title.required' => 'Il titolo è richiesto',
             'title.unique' => ' E\' già presente un progetto con questo titolo',
-            'title.max' => 'Il progetto non può essere lungo più di :max caratteri'
-
+            'title.max' => 'Il progetto non può essere lungo più di :max caratteri',
+            'technologies.exists' => 'La tecnologia non è valida'
         ];
     }
 }
