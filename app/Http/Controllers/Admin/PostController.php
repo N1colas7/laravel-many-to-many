@@ -56,7 +56,8 @@ class PostController extends Controller
         $newPost->save();
 
         if($request->has('technologies')){
-            $newTech->technologies()->attach($request->technologies);
+            
+            $newPost->technologies()->attach($request->technologies);
         }
 
         return redirect()->route('admin.posts.index')->with('message','Progetto creato correttamente');
