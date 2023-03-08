@@ -18,7 +18,7 @@
                         <th>Azioni</th>
                     </thead>
                     <tbody>
-                        @foreach ($technologies as $tech)
+                        @foreach ($technology as $tech)
                             <tr>
                                 <td>{{ $tech->id }}</td>
                                 <td>{{ $tech->name }}</td>
